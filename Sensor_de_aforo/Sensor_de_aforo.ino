@@ -153,7 +153,7 @@
          SBI(10);
          break;
        }
-       default :
+       case (0) :
        {
          SBI(4);
          SBI(5);
