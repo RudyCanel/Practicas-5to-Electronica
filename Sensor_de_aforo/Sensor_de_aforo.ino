@@ -24,6 +24,7 @@
   void setup()
   {
     Serial.begin(9600);
+    digitalWrite(A0,HIGH);
     
   }
   
@@ -36,14 +37,15 @@
 
     
     if (RESULTADO>6 && RESULTADO<10) {
-      delay(200);
+      delay(100);
       CONTEO=CONTEO+1;
-      Serial.println(CONTEO);
+      Serial.println(RESULTADO);
       
      
     }
     if (CONTEO >=9) 
        {
+        
         CBI(A0);
        }
        else 
@@ -153,7 +155,7 @@
          SBI(10);
          break;
        }
-       case (0) :
+       case(0) :
        {
          SBI(4);
          SBI(5);
@@ -163,6 +165,10 @@
          SBI(9);
          CBI(10);
          break;
+       }
+       case(10) :
+       {
+        CONTEO=0;
        }
 
        
@@ -187,7 +193,10 @@
    int TIEMPO;
    
     TIEMPO = pulseIn(ECHO,HIGH);
-    RESULTADO = TIEMPO / 29.1 / 2;
+    RESULTADO = TIEMPO/29.1/2;
+    Serial.print("distancia:");
+    Serial.println(RESULTADO);
+    delay(100);
   
   }
   
