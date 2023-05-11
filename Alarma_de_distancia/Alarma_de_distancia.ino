@@ -16,10 +16,11 @@
 #define CBI(pin)              digitalWrite(pin,LOW)
 LiquidCrystal_I2C lcd_I2C(0x27,16,2); 
 
-float DISTANCIA=0;
+int DISTANCIA=0;
 
 void setup()
 {
+  Serial.begin(9600);
   ONLCD();
   configPin();
 }
@@ -27,11 +28,10 @@ void setup()
 
 void loop()
 {
-   
-  lcd(A0);
+   Serial.println(DISTANCIA);
+  lcd(12);
   SENSOR(2,3);
-  Bled(4,5,6,7,8,9,10,11,12,13);
- 
+  Bled(4,5,6,7,8,9,10,11,A2,A6);
 }
 
 
@@ -47,8 +47,9 @@ void configPin(void)
   setpinOutput(9);
   setpinOutput(10);
   setpinOutput(11);
-  setpinOutput(12);
-  setpinOutput(13);
+  setpinOutput(A2);
+  setpinOutput(A0);
+  setpinOutput(A6);
 }
 void ONLCD(void)
 {
@@ -59,7 +60,7 @@ void ONLCD(void)
 
 void SENSOR (int TRIG, int ECHO)
 {
-  float TIEMPO=0;
+  int TIEMPO=0;
   SBI(TRIG);
   delayMicroseconds(2);
   CBI(TRIG);
@@ -69,7 +70,7 @@ void SENSOR (int TRIG, int ECHO)
   
 }
 void lcd(int BUZZER)
-{
+{ 
   if (DISTANCIA >45)
   {
     lcd_I2C.setCursor(0,0);
@@ -78,7 +79,7 @@ void lcd(int BUZZER)
     lcd_I2C.print("                ");
     noTone(BUZZER);
   }
-  if (DISTANCIA>30 && DISTANCIA<45)
+  if (DISTANCIA>30 && DISTANCIA<44)
   {
     lcd_I2C.setCursor(0,0);
     lcd_I2C.print(" Persona/Objeto ");
@@ -86,157 +87,27 @@ void lcd(int BUZZER)
     lcd_I2C.print("  Acercandoce   ");
     noTone(BUZZER);
   }
-  if (DISTANCIA>15 && DISTANCIA<30)
+  if (DISTANCIA>15 && DISTANCIA<29)
   {
     lcd_I2C.setCursor(0,0);
     lcd_I2C.print("Cuidado,Espacio ");
     lcd_I2C.setCursor(0,1);
     lcd_I2C.print("    Privado    ");
-    tone(BUZZER,500);
+    tone(BUZZER,200);
   }
-  if (DISTANCIA>5 && DISTANCIA<15)
+  if (DISTANCIA<14 && DISTANCIA>0)
   {
     lcd_I2C.setCursor(0,0);
     lcd_I2C.print("   Invadiendo   ");
     lcd_I2C.setCursor(0,1);
-    lcd_I2C.print("Espacio Privado ");
-    tone(BUZZER,700);
+    lcd_I2C.print("Espacio Personal");
+    tone(BUZZER,200);
   }
 }
 void Bled(int a, int b, int c, int d, int e,
           int f, int g, int h, int i, int j)
 {
-  if (DISTANCIA<4.5)
-  {
-    CBI(a);
-    CBI(b);
-    CBI(c);
-    CBI(d);
-    CBI(e);
-    CBI(f);
-    CBI(g);
-    CBI(h);
-    CBI(i);
-    CBI(j);
-  }
-  if (DISTANCIA >4.5 && DISTANCIA <9)
-  {
-    SBI(a);
-    CBI(b);
-    CBI(c);
-    CBI(d);
-    CBI(e);
-    CBI(f);
-    CBI(g);
-    CBI(h);
-    CBI(i);
-    CBI(j);
-  }
-  if (DISTANCIA >9 && DISTANCIA<13.5)
-  {
-    SBI(a);
-    SBI(b);
-    CBI(c);
-    CBI(d);
-    CBI(e);
-    CBI(f);
-    CBI(g);
-    CBI(h);
-    CBI(i);
-    CBI(j);
-  }
-  if (DISTANCIA>13.5 && DISTANCIA<18)
-  {
-    SBI(a);
-    SBI(b);
-    SBI(c);
-    CBI(d);
-    CBI(e);
-    CBI(f);
-    CBI(g);
-    CBI(h);
-    CBI(i);
-    CBI(j);
-  }
-  if (DISTANCIA>18 && DISTANCIA<22.5)
-  {
-    SBI(a);
-    SBI(b);
-    SBI(c);
-    SBI(d);
-    CBI(e);
-    CBI(f);
-    CBI(g);
-    CBI(h);
-    CBI(i);
-    CBI(j);
-  }
-  if (DISTANCIA>22.5 && DISTANCIA<27)
-  {
-    SBI(a);
-    SBI(b);
-    SBI(c);
-    SBI(d);
-    SBI(e);
-    CBI(f);
-    CBI(g);
-    CBI(h);
-    CBI(i);
-    CBI(j);
-  }
-  if (DISTANCIA>27 && DISTANCIA<31.5)
-  {
-    SBI(a);
-    SBI(b);
-    SBI(c);
-    SBI(d);
-    SBI(e);
-    SBI(f);
-    CBI(g);
-    CBI(h);
-    CBI(i);
-    CBI(j);
-  }
-  if (DISTANCIA>31.5 && DISTANCIA<36)
-  {
-    SBI(a);
-    SBI(b);
-    SBI(c);
-    SBI(d);
-    SBI(e);
-    SBI(f);
-    SBI(g);
-    CBI(h);
-    CBI(i);
-    CBI(j);
-  }
-  if (DISTANCIA>36 && DISTANCIA <40.5)
-  {
-    SBI(a);
-    SBI(b);
-    SBI(c);
-    SBI(d);
-    SBI(e);
-    SBI(f);
-    SBI(g);
-    SBI(h);
-    CBI(i);
-    CBI(j);
-  }
-  if (DISTANCIA>40.5 && DISTANCIA<45)
-  {
-    SBI(a);
-    SBI(b);
-    SBI(c);
-    SBI(d);
-    SBI(e);
-    SBI(f);
-    SBI(g);
-    SBI(h);
-    SBI(i);
-    CBI(j);
-  }
-  if (DISTANCIA >45)
+  if (DISTANCIA<5)
   {
     SBI(a);
     SBI(b);
@@ -248,5 +119,143 @@ void Bled(int a, int b, int c, int d, int e,
     SBI(h);
     SBI(i);
     SBI(j);
+    
+  }
+  if (DISTANCIA >5 && DISTANCIA <9)
+  {
+    SBI(a);
+    SBI(b);
+    SBI(c);
+    SBI(d);
+    SBI(e);
+    SBI(f);
+    SBI(g);
+    SBI(h);
+    SBI(i);
+    CBI(j);
+  }
+  if (DISTANCIA >10 && DISTANCIA<14)
+  {
+    
+    SBI(a);
+    SBI(b);
+    SBI(c);
+    SBI(d);
+    SBI(e);
+    SBI(f);
+    SBI(g);
+    SBI(h);
+    CBI(i);
+    CBI(j);
+  }
+  if (DISTANCIA>15 && DISTANCIA<18)
+  {
+    SBI(a);
+    SBI(b);
+    SBI(c);
+    SBI(d);
+    SBI(e);
+    SBI(f);
+    SBI(g);
+    CBI(h);
+    CBI(i);
+    CBI(j);
+  }
+  if (DISTANCIA>19 && DISTANCIA<23)
+  {
+    SBI(a);
+    SBI(b);
+    SBI(c);
+    SBI(d);
+    SBI(e);
+    SBI(f);
+    CBI(g);
+    CBI(h);
+    CBI(i);
+    CBI(j);
+  }
+  if (DISTANCIA>24 && DISTANCIA<27)
+  {
+    
+    SBI(a);
+    SBI(b);
+    SBI(c);
+    SBI(d);
+    SBI(e);
+    CBI(f);
+    CBI(g);
+    CBI(h);
+    CBI(i);
+    CBI(j);
+  }
+  if (DISTANCIA>28 && DISTANCIA<32)
+  {
+    noTone(A0);
+    SBI(a);
+    SBI(b);
+    SBI(c);
+    SBI(d);
+    CBI(e);
+    CBI(f);
+    CBI(g);
+    CBI(h);
+    CBI(i);
+    CBI(j);
+  }
+  if (DISTANCIA>33 && DISTANCIA<36)
+  {
+    noTone(A0);
+    SBI(a);
+    SBI(b);
+    SBI(c);
+    CBI(d);
+    CBI(e);
+    CBI(f);
+    CBI(g);
+    CBI(h);
+    CBI(i);
+    CBI(j);
+  }
+  if (DISTANCIA>37 && DISTANCIA <41)
+  {
+    noTone(A0);
+    SBI(a);
+    SBI(b);
+    CBI(c);
+    CBI(d);
+    CBI(e);
+    CBI(f);
+    CBI(g);
+    CBI(h);
+    CBI(i);
+    CBI(j);
+  }
+  if (DISTANCIA>42 && DISTANCIA<45)
+  {
+    noTone(A0);
+    SBI(a);
+    CBI(b);
+    CBI(c);
+    CBI(d);
+    CBI(e);
+    CBI(f);
+    CBI(g);
+    CBI(h);
+    CBI(i);
+    CBI(j);
+  }
+  if (DISTANCIA >46)
+  {
+    noTone(A0);
+    CBI(a);
+    CBI(b);
+    CBI(c);
+    CBI(d);
+    CBI(e);
+    CBI(f);
+    CBI(g);
+    CBI(h);
+    CBI(i);
+    CBI(j);
   }
 }
