@@ -4,7 +4,7 @@
 * Quinto perito
 * Sección: A
 * Curso : Taller de electronica digital y reparación de computadoras
-* Alumno: Rudy Santiago Canel Par
+* Alumno: Rudy Santiago Canel Par, Pablo 
 * Carnet:2022449
 * Proyecto: Silo de granos
 */
@@ -60,7 +60,7 @@ void configPin()
 void inicializar()
 {
   servo.attach(10);   // Indico el numero del pin donde estara conectado el servomotor
-  servo.write(0);     // Indico que el servomotor inicie con un angulo de 0
+  servo.write(10);     // Indico que el servomotor inicie con un angulo de 0
   lcd.init();         // Inicio la LCD por medio de I2C
   lcd.backlight();    // Enciendo la luz de fondo de la LCD
 }
@@ -87,11 +87,11 @@ int botones (int b1, int b2, int b3,                 //Configuracion general de 
   }
   else if (b4 == HIGH)
   {
-    Q1 = 16;
+    Q1 = 12;
   }
   else if (b5 == HIGH)
   {
-    Q1 = 18;
+    Q1 = 16;
   }
   else if (b6 == HIGH)
   {
@@ -125,7 +125,7 @@ int sensor(int TRIG, int ECHO)
   {
     duracion = pulseIn(ECHO, HIGH);     // Guardo el valor de pulso recibido en ECHO en la variable duracion
     distancia = duracion / 29.1 / 2;    // Formula para calcular la distancia
-    nivel = 22 - distancia;             // Guardo en nivel el resultado de la resta de el numero maximo de granos con la distancia del sensor
+    nivel = 20 - distancia;             // Guardo en nivel el resultado de la resta de el numero maximo de granos con la distancia del sensor
     delay(75);                          // Espero 75 milisegundos
     return nivel;                       // Regresa a la funcion principal el valor de la variable nivel
   }
@@ -146,7 +146,7 @@ void silo ()
   // Creo una condicional para que guarde el valor anterior la lectura de el sensor en la variable dis
   // Cuando se presiona un boton
 
-  if (sens != 0 && sens > 0 && sens < 22 && se == 0)   // Si la lectura del sensor no es cero y mayor que cero pero no menor que 22
+  if (sens != 0 && sens > 0 && sens < 12 && se == 0)   // Si la lectura del sensor no es cero y mayor que cero pero no menor que 22
     // Y si "se" se encuentra en cero
   {
     dis = sens;
@@ -154,7 +154,7 @@ void silo ()
 
 
   // Creo una condicional para que guarde el valor de Q1 en la variable Q0
-  if (bt != 0 && bt > 0 && bt < 22)   // Si la lectura del boton no es cero y es mayor que cero pero no es mayor que 22
+  if (bt != 0 && bt > 0 && bt < 12)   // Si la lectura del boton no es cero y es mayor que cero pero no es mayor que 22
   {
     Q0 = bt;
   }
@@ -167,17 +167,17 @@ void silo ()
   // Indico que el servomotor se mueva en un angulo de 90 grados
   // Indico que guarde un valor 0 en la variable se1
 
-  if (dis > x && x > 0 && x < 22)   // Si la distancia guardada es mayor a el resultado de la resta y no es cero pero tampoco mayor que 22
+  if (dis > x && x > 0 && x < 12)   // Si la distancia guardada es mayor a el resultado de la resta y no es cero pero tampoco mayor que 22
   {
     se = 1;
-    servo.write(90);
+    servo.write(60);
     se1 = 0;
   }
 
   // Si la condicional no se cumple, indico que el servomotor vuelva a un estado de grado 0
   else
   {
-    servo.write(0);
+    servo.write(10);
   }
 
   // Creo una condicional, la cual asigna un valor 0 a la variable se
@@ -210,7 +210,7 @@ void silo ()
   }
 
   // Creo una condicional que emite un tono en el buzzer
-  if (x <= -1 && se1 == 0)   // Si x es menor o igual a -1 y se1 es igual a 0
+  if (x <= -1 && se1 == 0 && bt>0)   // Si x es menor o igual a -1 y se1 es igual a 0
   {
     tone(11, 700, 200);
     delay(300);
@@ -218,6 +218,5 @@ void silo ()
     delay(300);
     tone(11, 700, 200);
     delay(300);
-    se1 = 1;
   }
 }
