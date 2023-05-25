@@ -4,7 +4,7 @@
 * Quinto perito
 * Sección: A
 * Curso : Taller de electronica digital y reparación de computadoras
-* Alumno: Rudy Santiago Canel Par, Pablo 
+* Alumno: Rudy Santiago Canel Par, Pablo Hernandez Ajiataz
 * Carnet:2022449
 * Proyecto: Silo de granos
 */
