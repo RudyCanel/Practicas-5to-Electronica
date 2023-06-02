@@ -27,22 +27,22 @@ void loop() {
 }
 void temperatura()
 {
-  temp.requestTemperatures();
+  temp.requestTemperatures();   // Inicia la comunicacion para obtener la temperatura
   delay(2);
 }
 void software ()
 {
   Serial.print("Temperatura:  ");
-  Serial.print(temp.getTempCByIndex(0));
+  Serial.print(temp.getTempCByIndex(0));  //Imprime la temperatura en grados Centigrados
   Serial.println("C");
 }
 void interrupt()
 {
-  Serial.println(text);
+  Serial.println(text);    // Imprime el texto almacenado en la variable text
 }
 void condicionales()
 {
-  x= digitalRead(2);
+  x= digitalRead(2);    // Guardo la lectura en la variable x
   if (x==1)
   {
     text= "Sensor Digital Cerrado";
