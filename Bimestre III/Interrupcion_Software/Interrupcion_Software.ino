@@ -1,3 +1,13 @@
+/* Fundacion Kinal
+* Centro educativo técnico laboral Kinal
+* Perito en electronica
+* Quinto perito
+* Sección: A
+* Curso : Taller de electronica digital y reparación de computadoras
+* Alumno: Rudy Santiago Canel Par
+* Carnet:2022449
+* Proyecto: Interrupcion por medio de software
+*/
 #include <DallasTemperature.h>
 #include <OneWire.h>
 #include <Ticker.h>
