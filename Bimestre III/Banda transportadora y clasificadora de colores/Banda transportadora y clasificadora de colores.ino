@@ -5,8 +5,8 @@
  * Grado: Quinto
  * Sección: A
  * Curso: Taller de electronica digital
- * Nombre: Rudy Santiago Canel Par
- * Carnet: 2022449
+ * Nombres: Rudy Santiago Canel Par, Miguel Angel Alvarado 
+ * Carnet: 2022449, 2022486
  * Proyecto: Banda transportadora y clasificadora de colores
 */
 #define ON(pin)     digitalWrite(pin,HIGH)
