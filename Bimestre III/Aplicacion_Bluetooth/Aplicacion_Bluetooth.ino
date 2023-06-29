@@ -1,3 +1,14 @@
+/*
+ * Fundacion Kinal
+ * Centro educativo tecnico laboral Kinal
+ * Perito en Electronica
+ * Grado: Quinto
+ * Sección: A
+ * Curso: Taller de electronica digital
+ * Nombres: Rudy Santiago Canel Par
+ * Carnet: 2022449
+ * Proyecto: Aplicacion Bluetooth
+*/
 #include <Ticker.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
@@ -8,12 +19,11 @@
 #define input(pin)    pinMode(pin,INPUT)
 void temp (void);
 
-volatile static int temperatura;
-unsigned int valor;
+float valor=25;
 
 Ticker interrupt(temp, 10000);
-OneWire temperatura1(5);
-DallasTemperature mytemp(&temperatura1);
+OneWire temperatura(5);
+DallasTemperature mytemp(&temperatura);
 SoftwareSerial rxtx(8,9);
 void setup()
 {
@@ -28,8 +38,9 @@ void setup()
 void loop()
 {
   interrupt.update();
-  while (rxtx.available() != 0)
+  while (rxtx.available() > 0)
   {
+    
     char caracter = rxtx.read();
 
     if (caracter == '1')
@@ -44,11 +55,11 @@ void loop()
    
   mytemp.requestTemperatures();
   rxtx.print(valor);
-  delay(1025);
+  rxtx.print(";");
+
 }
 
 void temp(void)
 {
   valor = mytemp.getTempCByIndex(0);
-  
 }
