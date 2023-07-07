@@ -1,3 +1,14 @@
+/*
+ * Fundacion Kinal
+ * Centro educativo tecnico laboral Kinal
+ * Perito en Electronica
+ * Grado: Quinto
+ * Sección: A
+ * Curso: Taller de electronica digital
+ * Nombres: Rudy Canel, Miguel Alvarado, David delCid
+ * Carnet: 2022449, 2022486, 2022482
+ * Proyecto: Mapa de Guatemala
+*/
 #include <Wire.h>
 #include <PCF8574.h>
 #define ON(pin) digitalWrite(pin,HIGH)
