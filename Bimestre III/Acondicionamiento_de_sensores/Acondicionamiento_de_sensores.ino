@@ -20,7 +20,6 @@ int sensor=0;
 int lectura=0;
 void MQ2 ();
 unsigned long tiempo=0;
-unsigned long anterior=0;
 unsigned long resultado;
 int q=0;
 unsigned long k;
