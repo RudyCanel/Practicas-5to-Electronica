@@ -8,7 +8,7 @@
 * Carnet:2022449
 * Proyecto: Examen Final
 */
-float sens = 0.66;
+float sens = 0.185;
 float corriente = 0.0;
 float ajust= 0.05;
 unsigned int i=0;
@@ -36,29 +36,33 @@ void loop() {
   j = map (i,0,1023,0,1023);
   j= (j*5)/(1023);
   resistencia = (50000/j)-(10000);
-  Serial.println(resistencia);
+  Serial.print(resistencia);
+  Serial.println("ohm");
   caracter=0;
   }
   if (caracter == 'V')
   {
     x= analogRead(A2);
-    voltaje= fmap(x,0,1023,0.0,25.0);
-    Serial.println(voltaje);
-  }
+    voltaje= vmap(x,0,1023,0.0,25.0);
+    Serial.print(voltaje);
+    Serial.println("V");
+    delay(1000);
+  } 
   if (caracter =='I')
   {
     corriente = prom(500);
     if (corriente>=0.01)
     {
       corriente= ((corriente*10)+ajust);
-      Serial.println(corriente);
-      delay(100);
+      Serial.print(corriente);
+      Serial.println("mA");
+      delay(1000);
     }else {
-      Serial.println("0.0");
-      delay(100);
+      Serial.print("0.0");
+      Serial.println("mA");
+      delay(1000);
     }
   }
-
 
   if(caracter == 'O')
   {
@@ -66,18 +70,18 @@ void loop() {
   }
 }
 
-float fmap(float y, float in_min, float in_max, float out_min, float out_max)
+float vmap(float y, float in_min, float in_max, float out_min, float out_max)
 {
   return (y-in_min)*(out_max - out_min)/(in_max - in_min) + out_min;
 }
 float prom(int muestras)
 {
-  float sensorA3;
+  float sensor;
   float intencidad=0;
   for (int i; i<=muestras;i++)
   {
-    sensorA3 = analogRead(A3);
-    intencidad = intencidad+(sensorA3-2.5)/sens;
+    sensor = analogRead(A3);
+    intencidad = intencidad+(sensor-2.5)/sens;
   }
   intencidad = intencidad / muestras;
   return (intencidad);
